@@ -1,0 +1,7 @@
+name = "fuwuji"
+main = "src/index.ts"
+compatibility_date = "2024-03-04"
+node_compat = true
+
+[vars]
+DASHBOARD_URL = "https://$DASHBOARD.nuozi.club/$VERSION"
