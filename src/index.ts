@@ -1,4 +1,8 @@
-import Pusher from "pusher";
+const corsHeaders = {
+	"Access-Control-Allow-Origin": "*",
+	"Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
+	"Access-Control-Max-Age": "86400",
+};
 
 function generateAlphanumericString(length: number): string {
 	const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -10,18 +14,6 @@ function generateAlphanumericString(length: number): string {
 		result += chars.charAt(randomBytes[i] % charsLength);
 	}
 	return result;
-}
-
-function hexStringToArrayBuffer(hex: string) {
-    if (hex.length % 2 !== 0) {
-        throw "Invalid hexString";
-    }
-    var arrayBuffer = new Uint8Array(hex.length / 2);
-    for (var i = 0; i < hex.length; i += 2) {
-        var byteValue = parseInt(hex.substring(i, i + 2), 16);
-        arrayBuffer[i / 2] = byteValue;
-    }
-    return arrayBuffer;
 }
 
 async function hmac(secret: string, text: string) {
@@ -62,12 +54,12 @@ export default {
 			const channel = url.searchParams.get('channel');
 			const token = url.searchParams.get('token');
 			if (typeof socketID !== "string" || typeof dashboard !== "string" || typeof version !== "string" || typeof channel !== "string" || typeof token !== "string") {
-				return Response.json({ "msg": "parameters invalid" }, { status: 401 })
+				return Response.json({ "msg": "parameters invalid" }, { status: 401, headers: corsHeaders })
 			}
 			const urlWithoutPathname = `${url.protocol}//${url.host}${url.port ? ':' + url.port : ''}`;
 
 			if (token !== await hmac(env.PUSHER_SECRET, channel)) {
-				return Response.json({ "msg": "token invalid" }, { status: 403 })
+				return Response.json({ "msg": "token invalid" }, { status: 403, headers: corsHeaders })
 			}
 			const auth = await hmac(env.PUSHER_SECRET, socketID + ":" + channel);
 
@@ -76,6 +68,6 @@ export default {
 				"url": env.DASHBOARD_URL.replace("$DASHBOARD", dashboard).replace("$VERSION", version) + `?url=${urlWithoutPathname}&channel=${channel}&token=${token}`
 			});
 		}
-		return Response.json({ "msg": "not found" }, { status: 404 })
+		return Response.json({ "msg": "not found" }, { status: 404, headers: corsHeaders })
 	},
 };
