@@ -46,7 +46,7 @@ export default {
 				"port": env.PUSHER_PORT,
 				"channel": channel,
 				"token": await hmac(env.PUSHER_SECRET, channel)
-			});
+			}, { status: 200, headers: corsHeaders  });
 		} else if (url.pathname == "/authorizeChannel" && request.method == "GET") {
 			const dashboard = url.searchParams.get('dashboard');
 			const version = url.searchParams.get('version');
@@ -66,7 +66,7 @@ export default {
 			return Response.json({
 				"auth": env.PUSHER_KEY + ":" + auth,
 				"url": env.DASHBOARD_URL.replace("$DASHBOARD", dashboard).replace("$VERSION", version) + `?url=${urlWithoutPathname}&channel=${channel}&token=${token}`
-			});
+			}, { status: 200, headers: corsHeaders  });
 		}
 		return Response.json({ "msg": "not found" }, { status: 404, headers: corsHeaders })
 	},
