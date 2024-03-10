@@ -53,8 +53,8 @@ export default {
 			const socketID = url.searchParams.get('socket_id');
 			const channel = url.searchParams.get('channel');
 			const token = url.searchParams.get('token');
-			if (typeof socketID !== "string" || typeof dashboard !== "string" || typeof version !== "string" || typeof channel !== "string" || typeof token !== "string") {
-				return Response.json({ "msg": "parameters invalid" }, { status: 401, headers: corsHeaders })
+			if (typeof socketID !== "string" || typeof channel !== "string" || typeof token !== "string") {
+				return Response.json({ "msg": "parameters invalid" }, { status: 400, headers: corsHeaders })
 			}
 			const urlWithoutPathname = `${url.protocol}//${url.host}${url.port ? ':' + url.port : ''}`;
 
@@ -62,10 +62,14 @@ export default {
 				return Response.json({ "msg": "token invalid" }, { status: 403, headers: corsHeaders })
 			}
 			const auth = await hmac(env.PUSHER_SECRET, socketID + ":" + channel);
+			let dashboardURL: string | undefined = undefined;
+			if (dashboard !== null && version !== null) {
+				dashboardURL = env.DASHBOARD_URL.replace("$DASHBOARD", dashboard).replace("$VERSION", version) + `?url=${urlWithoutPathname}&channel=${channel}&token=${token}`;
+			}
 
 			return Response.json({
 				"auth": env.PUSHER_KEY + ":" + auth,
-				"url": env.DASHBOARD_URL.replace("$DASHBOARD", dashboard).replace("$VERSION", version) + `?url=${urlWithoutPathname}&channel=${channel}&token=${token}`
+				"url": dashboardURL
 			}, { status: 200, headers: corsHeaders  });
 		}
 		return Response.json({ "msg": "not found" }, { status: 404, headers: corsHeaders })
