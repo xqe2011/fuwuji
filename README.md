@@ -25,13 +25,13 @@ npm run deploy
 接着在本项目页面找到`Settings`, 然后导航到`Variables`, 按照以下内容填写环境变量并选择`Encrypt`.
 
 
-| 名称 |含义 |
-| --- | --- |
-| PUSHER_APPID | PUSHER应用ID |
-| PUSHER_CLUSTER | PUSHER集群,建议选择`ap1`使用新加坡节点 |
-| PUSHER_KEY | PUSHER应用Key |
-| PUSHER_SECRET | PUSHER应用Secret |
-| DASHBOARD_URL | 选填, 前端面板URL, 用于企鹅弹幕机配置页面快速复制远程链接使用 |
+| 名称 | 含义 | 备注 |
+| --- | --- | --- |
+| PUSHER_APPID | PUSHER应用ID | 加密, 必填 |
+| PUSHER_CLUSTER | PUSHER集群,建议选择`ap1`使用新加坡节点 | 加密, 必填 |
+| PUSHER_KEY | PUSHER应用Key | 加密, 必填 |
+| PUSHER_SECRET | PUSHER应用Secret | 加密, 必填 |
+| DASHBOARD_URL | 前端面板URL, 用于企鹅弹幕机配置页面快速复制远程链接使用 | 选填 |
 
 ### 部署前端面板
 企鹅弹幕机/评论机仓库会维持不同版本的面板部署, 其地址默认为`https://danmuji.nuozi.club/版本号/index.html`或`https://pinglunji.nuozi.club/版本号/index.html`, 若无特别需求, 建议直接用即可, 这些部署是完全前端的, 你仍然可以使用自己的服务机, 可以放心安全问题.  

@@ -21,6 +21,16 @@ jobs:
         with:
           packageManager: npm
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          secrets: |
+            PUSHER_APPID
+            PUSHER_CLUSTER
+            PUSHER_KEY
+            PUSHER_SECRET
+        env:
+          PUSHER_APPID: ${{ secrets.PUSHER_APPID }}
+          PUSHER_CLUSTER: ${{ secrets.PUSHER_CLUSTER }}
+          PUSHER_KEY: ${{ secrets.PUSHER_KEY }}
+          PUSHER_SECRET: ${{ secrets.PUSHER_SECRET }}
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
