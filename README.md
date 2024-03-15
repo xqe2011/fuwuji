@@ -22,7 +22,7 @@ npm run deploy
 ### 配置环境变量和域名
 进入`cloudflare`后台, 找到本项目, [绑定域名](https://developers.cloudflare.com/pages/configuration/custom-domains/).
 
-接着在本项目页面找到`Settings`, 然后导航到`Variables`, 按照以下内容填写环境变量并选择`Encrypt`.
+接着在本项目页面找到`Settings`, 然后导航到`Variables`, 按照以下内容填写环境变量.  
 
 
 | 名称 | 含义 | 备注 |
