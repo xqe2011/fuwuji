@@ -1,0 +1,33 @@
+name: "release"
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    name: "Release"
+    permissions: write-all
+    runs-on: "windows-latest"
+    environment: release
+    
+    steps:
+      - uses: "actions/checkout@v2"
+        with:
+          submodules: 'recursive'
+
+      - name: Deploy to cloudflare
+        uses: cloudflare/wrangler-action@v3
+        with:
+          packageManager: npm
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: false
+          title: ${{  github.ref_name }}
+          files: |
+            LICENSE.txt
+            README.md

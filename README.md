@@ -3,7 +3,7 @@
 
 本项目基于[cloudflare](http://cloudflare.com)+[pusher](https://pusher.com)实现无状态服务的零成本中转服务器。
 
-未来会基于本项目提供企鹅服务机官方的免费远程中转服务器。
+本项目提供企鹅服务机官方的免费远程中转服务器: `https://fuwuji.nuozi.club`
 
 ## Serverless部署
 ### 前言
@@ -31,10 +31,10 @@ npm run deploy
 | PUSHER_CLUSTER | PUSHER集群,建议选择`ap1`使用新加坡节点 |
 | PUSHER_KEY | PUSHER应用Key |
 | PUSHER_SECRET | PUSHER应用Secret |
-| DASHBOARD_URL | 前端面板URL, 用于企鹅弹幕机配置页面快速复制远程链接使用, 可使用默认值 |
+| DASHBOARD_URL | 选填, 前端面板URL, 用于企鹅弹幕机配置页面快速复制远程链接使用 |
 
 ### 部署前端面板
-企鹅弹幕机/评论机仓库会维持不同版本的面板部署, 其地址默认为`https://danmuji.nuozi.club/版本号`或`https://pinglunji.nuozi.club/版本号`, 若无特别需求, 建议直接用即可, 这些部署是完全前端的, 你仍然可以使用自己的服务机, 可以放心安全问题.  
-如果你一定期望部署前端面板，请在`cloudflare`中创建`pages`项目, `git`地址填写企鹅弹幕机/企鹅评论机仓库地址.
-接着框架选择`vue.js`, 项目根目录选择`./web`, 输出目录选择`./dist`, 然后进行部署并绑定自己的域名.
+企鹅弹幕机/评论机仓库会维持不同版本的面板部署, 其地址默认为`https://danmuji.nuozi.club/版本号/index.html`或`https://pinglunji.nuozi.club/版本号/index.html`, 若无特别需求, 建议直接用即可, 这些部署是完全前端的, 你仍然可以使用自己的服务机, 可以放心安全问题.  
+如果你一定期望部署前端面板，请在`cloudflare`中创建`pages`项目, `git`地址填写企鹅弹幕机/企鹅评论机仓库地址.  
+接着框架选择`vue.js`, 项目根目录选择`./web`, 输出目录选择`./dist`, 然后进行部署并绑定自己的域名.  
 接着修改本项目`worker`的`DASHBOARD_URL`为你的域名即可.

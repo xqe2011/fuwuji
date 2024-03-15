@@ -4,4 +4,4 @@ compatibility_date = "2024-03-04"
 node_compat = true
 
 [vars]
-DASHBOARD_URL = "https://$DASHBOARD.nuozi.club/$VERSION"
+DASHBOARD_URL = "https://$DASHBOARD.nuozi.club/$VERSION/index.html"
